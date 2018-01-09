@@ -2,25 +2,27 @@
 <html>
 <head>
 	<title>Test page</title>
+	<style id="dynamicStylesheet"></style>
 	<script type="text/javascript">
+		const stylesheetElement = document.getElementById("dynamicStylesheet");
 		function setTheme(name = "red") {
-			// The <link> to be removed
-			const prevLinkElem = document.getElementsByTagName("link")[0];
-			// The <link> to be added
-			const newLinkElem = document.createElement("link");
-			newLinkElem.rel = "stylesheet";
-			newLinkElem.type = "text/css";
-			newLinkElem.href = `css/themes/${name}.css`;
-			document.head.appendChild(newLinkElem);
-			if (prevLinkElem)
-				document.head.removeChild(prevLinkElem);
+			const req = new XMLHttpRequest();
+			req.addEventListener("load", function() {
+				stylesheetElement.innerHTML = req.response;
+				document.body.style.display = "block";
+			});
+			req.open("GET", `css/themes/${name}.css`);
+			// Hide the page while we load the new stylesheet
+			if (document.body)
+				document.body.style.display = "none";
+			req.send();
 		}
 		const themes = ["red", "green", "blue", "night", "white"];
 		// Set a random theme
 		setTheme(themes[Math.floor(themes.length * Math.random())]);
 	</script>
 </head>
-<body>
+<body style="display: none;">
 	<div class="center">
 		<h1>This page is a proof of concept.</h1>
 		<p>It demonstrates a simple setup for a page that supports different color themes.</p>
