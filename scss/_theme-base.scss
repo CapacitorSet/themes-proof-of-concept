@@ -1,0 +1,42 @@
+/* Simple wrapper for HSL calculations:
+ *
+ *   - you don't have to repeat the "$hue" argumente every time
+ *   - uses a black-and-white theme (i.e. ignores hue) for white and night
+ *   - inverts the luminosity for the night theme
+ */
+@function _hsl($s, $l) {
+	@if $theme == "night" {
+		@return hsl(0, 0%, 100% - $l);
+	} @elseif $theme == "white" {
+		@return hsl(0, 0%, $l);
+	} @else {
+		@return hsl($hue, 100%, $l);	
+	}
+}
+
+body {
+	margin: 0 auto;
+	max-width: 40em;
+	padding: 1rem .62em;
+	font-size: 1.2em;
+	line-height: 1.62;
+	font-family: "Fira Sans", "Open Sans", sans-serif;
+	background-color: _hsl(100%, 95%);	
+	color: _hsl(0%, 0%);
+}
+h1, h2, h3 {
+	line-height: 1.2;
+}
+.center {
+	text-align: center;
+}
+strong {
+	color: _hsl(100%, 42%);
+}
+blockquote {
+	background-color: _hsl(100%, 90%);
+	border-left: 6px solid;
+	border-left-color: _hsl(100%, 75%);
+	padding: 0.1em 1em 0.1em 1em;
+	margin: 0;
+}

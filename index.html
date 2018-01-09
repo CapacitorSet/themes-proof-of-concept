@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test page</title>
+	<script type="text/javascript">
+		function setTheme(name = "red") {
+			// The <link> to be removed
+			const prevLinkElem = document.getElementsByTagName("link")[0];
+			// The <link> to be added
+			const newLinkElem = document.createElement("link");
+			newLinkElem.rel = "stylesheet";
+			newLinkElem.type = "text/css";
+			newLinkElem.href = `css/themes/${name}.css`;
+			document.head.appendChild(newLinkElem);
+			if (prevLinkElem)
+				document.head.removeChild(prevLinkElem);
+		}
+		const themes = ["red", "green", "blue", "night", "white"];
+		// Set a random theme
+		setTheme(themes[Math.floor(themes.length * Math.random())]);
+	</script>
+</head>
+<body>
+	<div class="center">
+		<h1>This page is a proof of concept.</h1>
+		<p>It demonstrates a simple setup for a page that supports different color themes.</p>
+		<p>Themes:
+			<a href="#" onclick="setTheme('red')">red</a> - 
+			<a href="#" onclick="setTheme('green')">green</a> - 
+			<a href="#" onclick="setTheme('blue')">blue</a> - 
+			<a href="#" onclick="setTheme('night')">night</a> - 
+			<a href="#" onclick="setTheme('white')">white</a>
+		</p>
+	</div>
+	<hr>
+	<h3>Lorem ipsum</h3>
+	<blockquote>
+		Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+	</blockquote>
+</body>
+</html>
